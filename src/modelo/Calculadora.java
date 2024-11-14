@@ -28,6 +28,22 @@ public class Calculadora {
        return Patrimonio;
     }
     
+    public int AcumuladoConsig (String ConsigxMes, String ConsigC2xMes)
+    {
+       int Consig1 = Integer.parseInt(ConsigxMes);
+       int Consig2 = Integer.parseInt(ConsigC2xMes);
+       int Consignaciones = Consig1 + Consig2;
+       return Consignaciones;
+    }
+    
+    public int AcumuladoInver (String textActivos, String textDeudas)
+    {
+       int numActivos = Integer.parseInt(textActivos);
+       int numDeudas = Integer.parseInt(textDeudas);
+       int Patrimonio = numActivos - numDeudas;
+       return Patrimonio;
+    }
+    
 }
 
  

@@ -28,7 +28,7 @@ public class VistaLoadAnalisis extends javax.swing.JFrame {
 
         setTitle("Cargar Mes Guardado");
 
-        jLabel1.setText("Numero de Mes a Analizar?");
+        jLabel1.setText("Numero de Mes a Comparar?");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

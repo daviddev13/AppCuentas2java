@@ -32,14 +32,22 @@ public class Guardar
       nombreMes = obtenerNombreMes(numeroMesInt);
       
       // Ir a funcion y obtener ruta archivo
-      Path urlarchivo = getUrl(nombreMes, UrlUser);
+      Path urlarchivo = getUrl(String.valueOf(numeroMesInt), UrlUser);
+      
+      //Almacinar Ubicacion y nombre del nuevo archivo
+      File archivo = urlarchivo.toFile();
+      
+      // Verificar si el archivo ya existe
+      if (archivo.exists()) {
+         int option = JOptionPane.showConfirmDialog(null, "El archivo ya existe. ¿Desea sobrescribirlo?", "Confirmar Sobrescritura", JOptionPane.YES_NO_OPTION);
+         if (option != JOptionPane.YES_OPTION) {
+            System.out.println("Operación cancelada por el usuario.");
+            return; // Salir del método si el usuario no quiere sobrescribir
+         }
+      }
       
       try
       {
-        // Ubicacion y nombre del nuevo archivo
-        //File archivo = new File("urlarchivo");
-        File archivo = urlarchivo.toFile();
-          
         // Creacion del nuevo archivo.
         archivo.createNewFile();
        
@@ -81,7 +89,7 @@ public class Guardar
       nombreMes = obtenerNombreMes(numeroMesInt);
       
       // Ir a funcion y obtener ruta archivo
-      Path urlarchivo = getUrl(nombreMes, UrlUser);
+      Path urlarchivo = getUrl(String.valueOf(numeroMesInt), UrlUser);
       
       // Crear una cadena con las líneas ordenadas
       StringBuilder toGuardar2 = new StringBuilder();
@@ -125,7 +133,7 @@ public class Guardar
    }
    
    // Metodo para obtener url 
-   static Path getUrl(String nombreMes, String UrlUser) 
+   static Path getUrl(String numeroMes, String UrlUser) 
    {  
       System.out.println(UrlUser);
        
@@ -133,7 +141,7 @@ public class Guardar
       Path directorioActual = Paths.get(UrlUser);
       
        // Obtener la ruta del archivo
-      return directorioActual.resolve(nombreMes + ".txt");
+      return directorioActual.resolve(numeroMes + ".txt");
       
    }
    

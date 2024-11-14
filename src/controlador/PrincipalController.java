@@ -18,6 +18,25 @@ public class PrincipalController {
     private static String Deudas = "";
     private static String Entidades = "";
     private static String Obser = "";
+    
+    private static String ObsEfect = "";
+    
+    private static String ConsigxMes = "";
+    private static String ConsigC2xMes = "";
+    
+    private static String AcumCons = "";
+    private static String AcumInv = "";
+    
+    private static String ApertInv = "";
+    
+    private static String ObsCuentaAhorro = "";
+    private static String ObOM = "";
+    private static String ob_inv1 = "";
+    private static String ob_inv2 = "";
+    private static String ob_compra = "";
+    private static String ob_gastos = "";
+    private static String Ob_deudas = "";
+
     private static String UrlUser = "";
             
     public static VistaPrincipal ventanaPrincipal = new VistaPrincipal();
@@ -46,7 +65,25 @@ public class PrincipalController {
         Deudas = ventanaPrincipal.getjTextField12().getText().isEmpty() ? "0" : ventanaPrincipal.getjTextField12().getText();
         Entidades = ventanaPrincipal.getjTextField11().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField11().getText();
         Obser = ventanaPrincipal.getjTextField5().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField5().getText();
+        
+        ObsEfect = ventanaPrincipal.getjTextField21().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField21().getText();
+        
+        ConsigxMes = ventanaPrincipal.getjTextField13().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField13().getText();
+        ConsigC2xMes = ventanaPrincipal.getjTextField20().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField20().getText();
+        ApertInv = ventanaPrincipal.getjTextField23().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField23().getText();
+        
+        AcumCons = ventanaPrincipal.getjTextField24().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField24().getText();
+        AcumInv = ventanaPrincipal.getjTextField25().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField25().getText();
+        
+        ObsCuentaAhorro = ventanaPrincipal.getjTextField19().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField19().getText();
+        ObOM = ventanaPrincipal.getjTextField22().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField22().getText();
+        ob_inv1 = ventanaPrincipal.getjTextField14().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField14().getText();
+        ob_inv2 = ventanaPrincipal.getjTextField15().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField15().getText();
+        ob_compra = ventanaPrincipal.getjTextField16().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField16().getText();
+        ob_gastos = ventanaPrincipal.getjTextField17().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField17().getText();
+        Ob_deudas = ventanaPrincipal.getjTextField18().getText().isEmpty() ? "vacio" : ventanaPrincipal.getjTextField18().getText();
     }
+    
     public static void eventoBotonConfirmarDatos()
     {
        System.out.println("Clicked Confirmar Datos"); 
@@ -67,24 +104,45 @@ public class PrincipalController {
        
        int Patrimonio = calculadora.Patrimonio(strTotalAc,Deudas);
        
+      // Calculadora calculadora2 = new Calculadora();
+       int acum = calculadora.AcumuladoConsig(ConsigxMes,ConsigC2xMes);
+      // int acum2 = calculadora.AcumuladoInver(ApertInv);
        
        
+               
        String Datos = ("<html>"
                     + "Mes: " + Mes 
-                    + "<br>Entidades: " + Entidades
+               + "<br>*******************************" 
                     + "<br>Efectivo: " + Efectivo
+               + "<br>ObsEfectivo: " + ObsEfect
                     + "<br>Cuenta de ahorro: " + Cahorro
-                    + "<br>Cuenta de ahorro2: " + Cahorro2                     
+                    + "<br>Cuenta de ahorro2: " + Cahorro2 
+               + "<br>ConsignacionesXMesC1: " + ConsigxMes
+               + "<br>ConsignacionesXMesC2: " + ConsigC2xMes
+               + "<br>ObsCuentaAhorro: " + ObsCuentaAhorro
                     + "<br>Otra Moneda: " + OtraMoneda
+               + "<br>ObsOM: " + ObOM
+               + "<br>AperturaInversiones: " + ApertInv
                     + "<br>Inversion: " + Prestamo
+               + "<br>ObsInv1: " + ob_inv1
                     + "<br>Inversion2: " + Prestamo2
-                    + "<br>Consumos: " + Consumos
+               + "<br>ObsInv2: " + ob_inv2
+                    + "<br>Compras: " + Consumos
+               + "<br>ObsCompra: " + ob_compra
                     + "<br>Gastos: " + Gastos
-                    + "<br>Deudas: " + Deudas
-                    + "<br>Observaciones: " + Obser
+               + "<br>ObsGastos: " + ob_gastos 
+                    + "<br>Deudas: " + Deudas 
+               + "<br>ObsDeudas: " + Ob_deudas
+               + "<br>*******************************" 
                     + "<br>Activos: " + strTotalAc
                     + "<br>Pasivos: " + Deudas
                     + "<br>Patrimonio: " + Patrimonio
+               + "<br>*******************************" 
+               + "<br>AcumConsignaciones: " + AcumCons
+               + "<br>AcumInversiones: " + AcumInv
+                    + "<br>Observaciones: " + Obser
+                    + "<br>Entidades: " + Entidades
+
                     + "</html>");
        //Envio datos a controlador de ventana save
        SaveController.setDatos(Datos);
@@ -105,18 +163,34 @@ public class PrincipalController {
      
        // Extraer número de la linea con verificaciones
     String numMes = (Carga[0].contains(": ")) ? Carga[0].split(": ")[1].trim() : "";
-    String entidades = (Carga[1].contains(": ")) ? Carga[1].split(": ")[1].trim() : "";
+    String entidades = (Carga[30].contains(": ")) ? Carga[30].split(": ")[1].trim() : "";
     String numEfectivo = (Carga[2].contains(": ")) ? Carga[2].split(": ")[1].trim() : "";
-    String numCahorro = (Carga[3].contains(": ")) ? Carga[3].split(": ")[1].trim() : "";
-    String numCahorro2 = (Carga[4].contains(": ")) ? Carga[4].split(": ")[1].trim() : "";
-    String numOtherCurrency = (Carga[5].contains(": ")) ? Carga[5].split(": ")[1].trim() : "";
-    String numInvest1 = (Carga[6].contains(": ")) ? Carga[6].split(": ")[1].trim() : "";
-    String numInvest2 = (Carga[7].contains(": ")) ? Carga[7].split(": ")[1].trim() : "";
-    String numConsumos = (Carga[8].contains(": ")) ? Carga[8].split(": ")[1].trim() : "";
-    String numGastos = (Carga[9].contains(": ")) ? Carga[9].split(": ")[1].trim() : "";
-    String numDeuda = (Carga[10].contains(": ")) ? Carga[10].split(": ")[1].trim() : "";
-    String Obs = (Carga[11].contains(": ")) ? Carga[11].split(": ")[1].trim() : "";
-
+    String numCahorro = (Carga[4].contains(": ")) ? Carga[4].split(": ")[1].trim() : "";
+    String numCahorro2 = (Carga[5].contains(": ")) ? Carga[5].split(": ")[1].trim() : "";
+    String numOtherCurrency = (Carga[9].contains(": ")) ? Carga[9].split(": ")[1].trim() : "";
+    String numInvest1 = (Carga[12].contains(": ")) ? Carga[12].split(": ")[1].trim() : "";
+    String numInvest2 = (Carga[14].contains(": ")) ? Carga[14].split(": ")[1].trim() : "";
+    String numConsumos = (Carga[16].contains(": ")) ? Carga[16].split(": ")[1].trim() : "";
+    String numGastos = (Carga[18].contains(": ")) ? Carga[18].split(": ")[1].trim() : "";
+    String numDeuda = (Carga[20].contains(": ")) ? Carga[20].split(": ")[1].trim() : "";
+    String Obs = (Carga[29].contains(": ")) ? Carga[29].split(": ")[1].trim() : "";
+    
+    String ObsEfectC = (Carga[3].contains(": ")) ? Carga[3].split(": ")[1].trim() : "";
+    
+    String ConsigxMesC = (Carga[6].contains(": ")) ? Carga[6].split(": ")[1].trim() : "";
+    String ConsigxMesC2 = (Carga[7].contains(": ")) ? Carga[7].split(": ")[1].trim() : "";
+    
+    String ObsCuentaAhorroC = (Carga[8].contains(": ")) ? Carga[8].split(": ")[1].trim() : "";
+    String ObOMC = (Carga[10].contains(": ")) ? Carga[10].split(": ")[1].trim() : "";
+    String ob_inv1C = (Carga[13].contains(": ")) ? Carga[13].split(": ")[1].trim() : "";
+    String ob_inv2C = (Carga[15].contains(": ")) ? Carga[15].split(": ")[1].trim() : "";
+    String ob_compraC = (Carga[17].contains(": ")) ? Carga[17].split(": ")[1].trim() : "";
+    String ob_gastosC  = (Carga[19].contains(": ")) ? Carga[19].split(": ")[1].trim() : "";
+    String Ob_deudasC = (Carga[21].contains(": ")) ? Carga[21].split(": ")[1].trim() : "";
+    
+    String Acum_con = (Carga[27].contains(": ")) ? Carga[27].split(": ")[1].trim() : "";
+    String Acum_inv  = (Carga[28].contains(": ")) ? Carga[28].split(": ")[1].trim() : "";
+    String Apt_inv = (Carga[11].contains(": ")) ? Carga[11].split(": ")[1].trim() : "";
 
         // Asignar el valor al campoEfectivo
         ventanaPrincipal.setjTextField1(numMes);
@@ -131,6 +205,25 @@ public class PrincipalController {
         ventanaPrincipal.setjTextField10(numCahorro2);
         ventanaPrincipal.setjTextField11(entidades); 
         ventanaPrincipal.setjTextField12(numDeuda);
+        
+        ventanaPrincipal.setjTextField21(ObsEfectC);
+        
+        ventanaPrincipal.setjTextField13(ConsigxMesC);
+        ventanaPrincipal.setjTextField20(ConsigxMesC2);
+        
+        ventanaPrincipal.setjTextField19(ObsCuentaAhorroC);
+        ventanaPrincipal.setjTextField22(ObOMC);
+        ventanaPrincipal.setjTextField14(ob_inv1C);
+        ventanaPrincipal.setjTextField15(ob_inv2C);
+        ventanaPrincipal.setjTextField16(ob_compraC);
+        ventanaPrincipal.setjTextField17(ob_gastosC);
+        ventanaPrincipal.setjTextField18(Ob_deudasC);
+        
+        ventanaPrincipal.setjTextField23(Apt_inv);
+        ventanaPrincipal.setjTextField24(Acum_con);
+        ventanaPrincipal.setjTextField25(Acum_inv); 
+        
+        
         ocultarLoadSave();
     }
 
